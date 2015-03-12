@@ -1,0 +1,4 @@
+useDynLib(iLaplace)
+exportPattern("^[[:alpha:]]+")
+importFrom(Rcpp, evalCpp)
+import(RcppArmadillo,foreach,doMC,coda)

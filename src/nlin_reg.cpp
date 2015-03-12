@@ -46,7 +46,7 @@ arma::vec rmvnorm(arma::vec mu, arma::mat S, int p)
   chol(A, S); // note: this give A^TA = S, with A upper-triangular
   RNGScope scope;
   bool status = A.is_empty();
-  if (status==true) printf("\nCholesky decomposition in rmvnorm failed!");
+  if (status==true) Rprintf("\nCholesky decomposition in rmvnorm failed!");
   arma::vec X = arma::randn(p);
   return mu + A.t()*X;
 }
@@ -443,7 +443,7 @@ MCMCmetrop_cpp(Function lfun,
         ans.col(i) = propPar;
         }
     // print some information on the simulation process
-      if(i%verbose == 0 ) printf("\rMCMC: iteration %d of %d, accpted %d, acc. ratio %f\r",
+      if(i%verbose == 0 ) Rprintf("\rMCMC: iteration %d of %d, accpted %d, acc. ratio %f\r",
       i, mcmc+burnin, nacc, static_cast<double>(nacc)/static_cast<double>(i+1));
     
     // for stopping R computations
@@ -487,7 +487,7 @@ mlChib_cpp(Function lfun,
     minDen(1) = exp(user_fun_eval(lfun, propPar, myframe)-lfun_hatpar);
     den += min(minDen);
         // print some information on the simulation process
-    if(i%verbose == 0 ) printf("\rChib's marg. lik at iteration %d of %d, is %f",
+    if(i%verbose == 0 ) Rprintf("\rChib's marg. lik at iteration %d of %d, is %f",
     i, nNum, log(num)-log(den));
     
     // for stopping R computations
@@ -517,7 +517,7 @@ mlIS_cpp(Function lfun,
       wsamp = -1000.0;
     }
     malik += exp(wsamp);
-    if(i%verbose == 0 ) printf("\rImportance sampling marg. lik at iteration %d of %d, is %f",
+    if(i%verbose == 0 ) Rprintf("\rImportance sampling marg. lik at iteration %d of %d, is %f",
     i, nsim, malik/static_cast<double>(i));
   }
   return log(malik) - log(nsim);
